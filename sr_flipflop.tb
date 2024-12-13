@@ -1,0 +1,32 @@
+`timescale 1ns / 1ps
+
+module sr_flipflop_tb();
+  reg s, r, clk;
+  wire q, qbar;  
+
+  
+  sr_flipflop uut (
+      .q(q),
+      .qbar(qbar),
+      .s(s),
+      .r(r),
+      .clk(clk)
+  );
+
+ 
+  initial begin
+  
+      s = 0;
+      r = 0;
+      clk = 0;
+      $monitor("Time=%t | q=%b, qbar=%b, s=%b, r=%b, clk=%b", $time, q, qbar, s, r, clk);
+
+      
+      #500 $finish;
+  end
+
+  
+  always #30 s = ~s;   
+  always #50 r = ~r;  
+  always #100 clk = ~clk; 
+endmodule
